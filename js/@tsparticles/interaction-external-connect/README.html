@@ -1,0 +1,41 @@
+<p><a href="https://particles.js.org/"><img src="https://particles.js.org/images/banner2.png" alt="banner"></a></p>
+<h1 id="tsParticles-External-Connect-Interaction"><a href="#tsParticles-External-Connect-Interaction" class="headerlink" title="tsParticles External Connect Interaction"></a>tsParticles External Connect Interaction</h1><p><a href="https://www.jsdelivr.com/package/npm/@tsparticles/interaction-external-connect"><img src="https://data.jsdelivr.com/v1/package/npm/@tsparticles/interaction-external-connect/badge" alt="jsDelivr"></a><br><a href="https://www.npmjs.com/package/@tsparticles/interaction-external-connect"><img src="https://badge.fury.io/js/@tsparticles/interaction-external-connect.svg" alt="npmjs"></a><br><a href="https://www.npmjs.com/package/@tsparticles/interaction-external-connect"><img src="https://img.shields.io/npm/dt/@tsparticles/interaction-external-connect" alt="npmjs"></a> <a href="https://github.com/sponsors/matteobruni"><img src="https://img.shields.io/github/sponsors/matteobruni" alt="GitHub Sponsors"></a></p>
+<p><a href="https://github.com/tsparticles/tsparticles">tsParticles</a> interaction plugin for connect effect around mouse or HTML<br>elements.</p>
+<h2 id="How-to-use-it"><a href="#How-to-use-it" class="headerlink" title="How to use it"></a>How to use it</h2><h3 id="CDN-Vanilla-JS-jQuery"><a href="#CDN-Vanilla-JS-jQuery" class="headerlink" title="CDN &#x2F; Vanilla JS &#x2F; jQuery"></a>CDN &#x2F; Vanilla JS &#x2F; jQuery</h3><p>The CDN&#x2F;Vanilla version JS has one required file in vanilla configuration:</p>
+<p>Including the <code>tsparticles.interaction.external.connect.min.js</code> file will export the function to load the interaction<br>plugin:</p>
+<pre><code class="javascript">loadExternalConnectInteraction;
+</code></pre>
+<h3 id="Usage"><a href="#Usage" class="headerlink" title="Usage"></a>Usage</h3><p>Once the scripts are loaded you can set up <code>tsParticles</code> and the interaction plugin like this:</p>
+<pre><code class="javascript">(async () =&gt; {
+  await loadExternalConnectInteraction(tsParticles);
+
+  await tsParticles.load({
+    id: &quot;tsparticles&quot;,
+    options: {
+      /* options */
+    },
+  });
+})();
+</code></pre>
+<h3 id="ESM-CommonJS"><a href="#ESM-CommonJS" class="headerlink" title="ESM &#x2F; CommonJS"></a>ESM &#x2F; CommonJS</h3><p>This package is compatible also with ES or CommonJS modules, firstly this needs to be installed, like this:</p>
+<pre><code class="shell">$ npm install @tsparticles/interaction-external-connect
+</code></pre>
+<p>or</p>
+<pre><code class="shell">$ yarn add @tsparticles/interaction-external-connect
+</code></pre>
+<p>Then you need to import it in the app, like this:</p>
+<pre><code class="javascript">const { tsParticles } = require(&quot;@tsparticles/engine&quot;);
+const { loadExternalConnectInteraction } = require(&quot;@tsparticles/interaction-external-connect&quot;);
+
+(async () =&gt; {
+  await loadExternalConnectInteraction(tsParticles);
+})();
+</code></pre>
+<p>or</p>
+<pre><code class="javascript">import { tsParticles } from &quot;@tsparticles/engine&quot;;
+import { loadExternalConnectInteraction } from &quot;@tsparticles/interaction-external-connect&quot;;
+
+(async () =&gt; {
+  await loadExternalConnectInteraction(tsParticles);
+})();
+</code></pre>

@@ -1,0 +1,114 @@
+<p><a href="https://particles.js.org/"><img src="https://particles.js.org/images/banner2.png" alt="banner"></a></p>
+<h1 id="tsParticles-Basic-Bundle"><a href="#tsParticles-Basic-Bundle" class="headerlink" title="tsParticles Basic Bundle"></a>tsParticles Basic Bundle</h1><p><a href="https://www.jsdelivr.com/package/npm/@tsparticles/basic"><img src="https://data.jsdelivr.com/v1/package/npm/@tsparticles/basic/badge" alt="jsDelivr"></a> <a href="https://www.npmjs.com/package/@tsparticles/basic"><img src="https://badge.fury.io/js/@tsparticles/basic.svg" alt="npmjs"></a> <a href="https://www.npmjs.com/package/@tsparticles/basic"><img src="https://img.shields.io/npm/dt/@tsparticles/basic" alt="npmjs"></a> <a href="https://github.com/sponsors/matteobruni"><img src="https://img.shields.io/github/sponsors/matteobruni" alt="GitHub Sponsors"></a></p>
+<p><a href="https://github.com/tsparticles/tsparticles">tsParticles</a> basic bundle loads the minimum features to a <code>@tsparticles/engine</code> instance for having dots moving in the canvas.</p>
+<p><strong>Included Packages</strong></p>
+<ul>
+<li><a href="https://github.com/tsparticles/tsparticles/tree/main/engine">@tsparticles&#x2F;engine</a></li>
+<li><a href="https://github.com/tsparticles/tsparticles/tree/main/move/base">@tsparticles&#x2F;move-base</a></li>
+<li><a href="https://github.com/tsparticles/tsparticles/tree/main/shapes/circle">@tsparticles&#x2F;shape-circle</a></li>
+<li><a href="https://github.com/tsparticles/tsparticles/tree/main/updaters/color">@tsparticles&#x2F;updater-color</a></li>
+<li><a href="https://github.com/tsparticles/tsparticles/tree/main/updaters/opacity">@tsparticles&#x2F;updater-opacity</a></li>
+<li><a href="https://github.com/tsparticles/tsparticles/tree/main/updaters/outModes">@tsparticles&#x2F;updater-out-modes</a></li>
+<li><a href="https://github.com/tsparticles/tsparticles/tree/main/updaters/size">@tsparticles&#x2F;updater-size</a></li>
+</ul>
+<h2 id="How-to-use-it"><a href="#How-to-use-it" class="headerlink" title="How to use it"></a>How to use it</h2><h3 id="CDN-Vanilla-JS-jQuery"><a href="#CDN-Vanilla-JS-jQuery" class="headerlink" title="CDN &#x2F; Vanilla JS &#x2F; jQuery"></a>CDN &#x2F; Vanilla JS &#x2F; jQuery</h3><p>The CDN&#x2F;Vanilla version JS has two different files:</p>
+<ul>
+<li>One is a bundle file with all the scripts included in a single file</li>
+<li>One is a file including just the <code>loadBasic</code> function to load the tsParticles basic preset, all dependencies must be<br>included manually</li>
+</ul>
+<h4 id="Bundle"><a href="#Bundle" class="headerlink" title="Bundle"></a>Bundle</h4><p>Including the <code>tsparticles.basic.bundle.min.js</code> file will work exactly like <code>v1</code>, you can start using the <code>tsParticles</code><br>instance in the same way.</p>
+<p>This is the easiest usage, since it’s a single file with the some of the <code>v1</code> features.</p>
+<p>All new features will be added as external packages, this bundle is recommended for migrating from <code>v1</code> easily.</p>
+<h4 id="Not-Bundle"><a href="#Not-Bundle" class="headerlink" title="Not Bundle"></a>Not Bundle</h4><p>This installation requires more work since all dependencies must be included in the page. Some lines above are all<br>specified in the <strong>Included Packages</strong> section.</p>
+<h3 id="Usage"><a href="#Usage" class="headerlink" title="Usage"></a>Usage</h3><p>Once the scripts are loaded you can set up <code>tsParticles</code> like this:</p>
+<pre><code class="javascript">(async () =&gt; {
+  await loadBasic(tsParticles);
+
+  await tsParticles.load({
+    id: &quot;tsparticles&quot;,
+    options: {
+      /* options */
+    },
+  });
+})();
+</code></pre>
+<h3 id="React-js-Preact-Inferno"><a href="#React-js-Preact-Inferno" class="headerlink" title="React.js &#x2F; Preact &#x2F; Inferno"></a>React.js &#x2F; Preact &#x2F; Inferno</h3><p><em>The syntax for <code>React.js</code>, <code>Preact</code> and <code>Inferno</code> is the same</em>.</p>
+<p>This sample uses the class component syntax, but you can use hooks as well (if the library supports it).</p>
+<p><em>Class Components</em></p>
+<pre><code class="typescript">import React from &quot;react&quot;;
+import Particles from &quot;react-particles&quot;;
+import type { Engine } from &quot;@tsparticles/engine&quot;;
+import { loadBasic } from &quot;@tsparticles/basic&quot;;
+
+export class ParticlesContainer extends PureComponent&lt;unknown&gt; {
+  // this customizes the component tsParticles installation
+  async customInit(engine: Engine) {
+    // this adds the bundle to tsParticles
+    await loadBasic(engine);
+  }
+
+  render() {
+    const options = {
+      /* custom options */
+    };
+
+    return &lt;Particles options={options} init={this.customInit} /&gt;;
+  }
+}
+</code></pre>
+<p><em>Hooks &#x2F; Functional Components</em></p>
+<pre><code class="typescript">import React, { useCallback } from &quot;react&quot;;
+import Particles from &quot;react-particles&quot;;
+import type { Engine } from &quot;@tsparticles/engine&quot;;
+import { loadBasic } from &quot;@tsparticles/basic&quot;;
+
+export function ParticlesContainer(props: unknown) {
+  // this customizes the component tsParticles installation
+  const customInit = useCallback(async (engine: Engine) =&gt; {
+    // this adds the bundle to tsParticles
+    await loadBasic(engine);
+  });
+
+  const options = {
+    /* custom options */
+  };
+
+  return &lt;Particles options={options} init={this.customInit} /&gt;;
+}
+</code></pre>
+<h3 id="Vue-2-x-and-3-x"><a href="#Vue-2-x-and-3-x" class="headerlink" title="Vue (2.x and 3.x)"></a>Vue (2.x and 3.x)</h3><p><em>The syntax for <code>Vue.js 2.x</code> and <code>3.x</code> is the same</em></p>
+<pre><code class="vue">&lt;Particles id=&quot;tsparticles&quot; :particlesInit=&quot;particlesInit&quot; :options=&quot;options&quot; /&gt;
+</code></pre>
+<pre><code class="js">const options = {
+    /* custom options */
+};
+
+async function particlesInit(engine: Engine) {
+    await loadBasic(engine);
+}
+</code></pre>
+<h3 id="Angular"><a href="#Angular" class="headerlink" title="Angular"></a>Angular</h3><pre><code class="html">&lt;ng-particles [id]=&quot;id&quot; [options]=&quot;options&quot; [particlesInit]=&quot;particlesInit&quot;&gt;&lt;/ng-particles&gt;
+</code></pre>
+<pre><code class="ts">const options = {
+  /* custom options */
+};
+
+async function particlesInit(engine: Engine): void {
+  await loadBasic(engine);
+}
+</code></pre>
+<h3 id="Svelte"><a href="#Svelte" class="headerlink" title="Svelte"></a>Svelte</h3><pre><code class="sveltehtml">
+&lt;Particles
+    id=&quot;tsparticles&quot;
+    options={options}
+    particlesInit=&quot;{particlesInit}&quot;
+/&gt;
+</code></pre>
+<pre><code class="js">let options = {
+  /* custom options */
+};
+
+let particlesInit = async (engine) =&gt; {
+  await loadBasic(engine);
+};
+</code></pre>
