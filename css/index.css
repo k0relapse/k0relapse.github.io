@@ -3983,12 +3983,15 @@ figure.highlight pre .javascript .function {
 #pagination .pagination-related .info-1 .info-item-2 {
   -webkit-line-clamp: 1;
 }
+#pagination .pagination-related .info-1 .info-item-2 {
+  -webkit-line-clamp: 1;
+}
 #pagination .pagination-related .info-2 .info-item-1 {
   -webkit-line-clamp: 2;
 }
 #pagination.pagination-post {
   overflow: hidden;
-  margin-top: 40px;
+  margin-top: 10px;
   width: 100%;
   border-radius: 6px;
 }
