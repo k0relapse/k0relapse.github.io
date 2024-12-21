@@ -227,6 +227,27 @@
 <p><img src="/../resources/images/2024-12_assert/8.webp"></p>
 <p>解压出来运行就好。</p>
 <p><img src="/../resources/images/2024-12_assert/9.webp"></p>
+<h3 id="NSSCTF-SWPU-2020-套娃"><a href="#NSSCTF-SWPU-2020-套娃" class="headerlink" title="NSSCTF [SWPU 2020] 套娃"></a>NSSCTF [SWPU 2020] 套娃</h3><p>套了一坨 xlsx 文件。</p>
+<p>第一层塞了一个 rc4 密文。</p>
+<p>第二层塞了一个带 rc4 密文 key 的压缩包，但是被加密了。</p>
+<p>第三层则是一个打不开的压缩包，010打开可以在尾部发现第二层压缩包的解压密码。</p>
+<p>最后 rc4 解密即可。</p>
+<p>flag ： NSSCTF{ef1a73d40977a49b99b871980f355757}</p>
+<h3 id="NSSCTF-NISACTF-2022-流量包里有个熊"><a href="#NSSCTF-NISACTF-2022-流量包里有个熊" class="headerlink" title="NSSCTF [NISACTF 2022] 流量包里有个熊"></a>NSSCTF [NISACTF 2022] 流量包里有个熊</h3><p>下载下来一个未知文件，根据题目描述猜测是 pcap 流量包。</p>
+<p>跟踪 TCP 流发现一个图片文件，导出。</p>
+<p>同时可以注意到这个图片文件后面是跟着一个 rar 压缩包的，分离压缩包后在里面发现被加密过的 flag 文本文件，内容一眼凯撒密码加密后的 16 进制字节。</p>
+<p>偏移是 13 .</p>
+<p><img src="/../resources/images/2024-12_assert/13.webp"></p>
+<p>解密出的字节流其实是一个 jpg 文件。</p>
+<p><img src="/../resources/images/2024-12_assert/real.jpg"></p>
+<p>导到 stegsolve 里看，发现图片细节失真比较严重，但是没有发现其他隐写痕迹。</p>
+<p>常规隐写方式都撞一遍，最后发现是盲水印。</p>
+<p><img src="/../resources/images/2024-12_assert/watermark.jpg" alt="评价是看吐了"></p>
+<p>得到 flag ： NSSCTF{S0_clev2l_You}</p>
+<h3 id="攻防世界-GFSJ0249-misc-pic-again"><a href="#攻防世界-GFSJ0249-misc-pic-again" class="headerlink" title="攻防世界 GFSJ0249 misc_pic_again"></a>攻防世界 GFSJ0249 misc_pic_again</h3><p>下载下来一张图片，LSB隐写。</p>
+<p>提取出来一个压缩包，解压后是一个二进制文件。</p>
+<p>IDA Pro 打开查找字符串，发现 flag :</p>
+<p><code>hctf&#123;scxdc3tok3yb0ard4g41n~~~&#125;</code></p>
 ]]></content>
       <categories>
         <category>Articles</category>
