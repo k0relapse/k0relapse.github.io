@@ -1,1 +1,43 @@
-#recent-posts>.recent-post-item,.layout_page>div:first-child:not(.recent-posts),.layout_post>#page,.layout_post>#post,.read-mode .layout_post>#post,[data-theme=light] #aside_content .card-widget,[data-theme=light] .layout_post>#post{background:rgba(25,25,255,.7)}[data-theme=light] :root{--card-bg:rgba(25, 25, 255, .7)}#recent-posts>.recent-post-item,.layout_page>div:first-child:not(.recent-posts),.layout_post>#page,.layout_post>#post,.read-mode .layout_post>#post,[data-theme=dark] #aside_content .card-widget,[data-theme=dark] .layout_post>#post{background:rgba(0,0,0,.7)}[data-theme=dark] :root{--card-bg:rgba(0, 0, 0, .7)}
+[data-theme="light"] 
+  .layout_post>#post {
+
+    background: rgba(25, 25, 255, .7);
+  }
+
+[data-theme="light"] 
+  #aside_content .card-widget,
+  #recent-posts>.recent-post-item,
+  .layout_page>div:first-child:not(.recent-posts),
+  .layout_post>#page,
+  .layout_post>#post,
+  .read-mode .layout_post>#post {
+
+    background: rgba(25, 25, 255, .7);
+  }
+
+[data-theme="light"] 
+  :root {
+    --card-bg: rgba(25, 25, 255, .7);
+  }
+
+[data-theme="dark"]
+  .layout_post>#post {
+
+    background: rgba(0, 0, 0, .7);
+  }
+
+[data-theme="dark"]
+  #aside_content .card-widget,
+  #recent-posts>.recent-post-item,
+  .layout_page>div:first-child:not(.recent-posts),
+  .layout_post>#page,
+  .layout_post>#post,
+  .read-mode .layout_post>#post {
+
+    background: rgba(0, 0, 0, .7);
+  }
+
+[data-theme="dark"]
+  :root {
+    --card-bg: rgba(0, 0, 0, .7);
+  }
