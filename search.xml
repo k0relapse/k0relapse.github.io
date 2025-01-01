@@ -39,6 +39,39 @@
 ]]></content>
   </entry>
   <entry>
+    <title>贰零贰伍年壹月·散装刷题月记</title>
+    <url>/2025/01/01/2024-12%20WriteUp%20copy/</url>
+    <content><![CDATA[<h1 id="贰零贰肆年拾贰月刷题月记"><a href="#贰零贰肆年拾贰月刷题月记" class="headerlink" title="贰零贰肆年拾贰月刷题月记"></a>贰零贰肆年拾贰月刷题月记</h1><hr>
+<h2 id="说在前面"><a href="#说在前面" class="headerlink" title="说在前面"></a>说在前面</h2><pre><code>新年快乐鸭~~~
+</code></pre>
+<p><img src="/../resources/images/2025-01_assert/0b7d23bdbc3ae6bda5f75911910b322.jpg"></p>
+<p><img src="/../resources/images/2025-0_assert/4c5783164ee4fd8e1bd523f127fcbd1.jpg"></p>
+<p><img src="/../resources/images/2025-01_assert/9988384bada4385b0825334aac6fa58.jpg"></p>
+<p><img src="/../resources/images/2025-01_assert/a842f3e7c2b1abd487b2f713440ee3a.jpg"></p>
+<p><img src="/../resources/images/2025-01_assert/e3b2241014932255dce8eec549acb2f.jpg"></p>
+<p><img src="/../resources/images/2025-01_assert/8eb64b60aabb0c15103d883acd5012d.jpg"></p>
+<p><img src="/../resources/images/2025-01_assert/edd88de02275a3c4124466c029f6bf0.jpg"></p>
+<p><img src="/../resources/images/2025-01_assert/8ed90687cef734a994da5b7303932e3.jpg"></p>
+<hr>
+<h2 id="Misc"><a href="#Misc" class="headerlink" title="Misc"></a>Misc</h2><h3 id="NSSCTF-羊城杯-2023-决赛-easy00aes"><a href="#NSSCTF-羊城杯-2023-决赛-easy00aes" class="headerlink" title="NSSCTF [羊城杯 2023 决赛] easy00aes"></a>NSSCTF [羊城杯 2023 决赛] easy00aes</h3><p>下载下来一个 png 文件， 在文件末尾处可以发现一个 zip 文件。</p>
+<p>提取出来解压，发现有密码。</p>
+<p>注意到文件名很像被 Base64 编码过的，解码即可得到压缩包密码：<code>asddsa</code></p>
+<p>解压可以得到 flag.jpg （ 实际为 png ）和藏了零宽字符隐写的文本。</p>
+<p>零宽字符藏了 AES 的 key ：<code>adsadwadsadad</code></p>
+<p>png 有宽高隐写，藏了密文：<code>1eu4+X0rAE79+rZQBxhAG7t85wcd20u0VfupQJx1H0Hm6HVnHQoLmW0M9D9i/yo9</code></p>
+<p>（ 这里 <code>0</code> 和 <code>O</code> 可能看不出，解密的时候多试几遍即可 ）</p>
+<p>由于 key 只有 13 位，选择用 00 补齐。</p>
+<p>解密即可。</p>
+<p><img src="/../resources/images/2025-01_assert/1.webp"></p>
+]]></content>
+      <categories>
+        <category>Articles</category>
+      </categories>
+      <tags>
+        <tag>Practice</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>强网青少 2024 创新赛 WriteUp</title>
     <url>/2024/12/10/%E5%BC%BA%E7%BD%91%E6%9D%AF%E9%9D%92%E5%B0%91%E8%B5%9B%202024%20%E5%AE%9E%E8%B7%B5%E8%B5%9BWriteUp/</url>
     <content><![CDATA[<h1 id="强网青少-2024-创新赛-WriteUp"><a href="#强网青少-2024-创新赛-WriteUp" class="headerlink" title="强网青少 2024 创新赛 WriteUp"></a>强网青少 2024 创新赛 WriteUp</h1><p>题目资源：<a href="https://github.com/CTF-Archives/2024-qwqsncx/tree/main?tab=readme-ov-file">https://github.com/CTF-Archives/2024-qwqsncx/tree/main?tab=readme-ov-file</a></p>
@@ -78,6 +111,7 @@
 <h2 id="说在前面"><a href="#说在前面" class="headerlink" title="说在前面"></a>说在前面</h2><p>12 月的前几天都在绝赞补作业中😭</p>
 <p>加上又要忙 qwb 青少的一些事，做题时间其实不多。</p>
 <p>不过题肯定是不能少刷的。</p>
+<p><strong>12-25更新：</strong> 准备期末，开鸽~~</p>
 <hr>
 <h2 id="Pwn"><a href="#Pwn" class="headerlink" title="Pwn"></a>Pwn</h2><h3 id="CTF-Wiki-ret2libc1"><a href="#CTF-Wiki-ret2libc1" class="headerlink" title="CTF Wiki ret2libc1"></a>CTF Wiki ret2libc1</h3><p>做这道题之前去了解了一下一些 pwn 工具的常用操作，果然做题顺了很多。</p>
 <p>或许也可能是做 pwn 题目的思维逐渐构建起来了的原因？咱也说不准😅</p>
@@ -269,7 +303,7 @@
 <p><del>这就是你这周到现在一道 web 都没刷的理由吗死鬼</del></p>
 <p>今天还有时间， ctfer 的一天，从晚上九点开始。</p>
 <p>就这样吧。</p>
-<p><strong>11&#x2F;22 更新：</strong> 攻防世界的环境又分发不了了，做点 Misc 罢。</p>
+<p><strong>11-22 更新：</strong> 攻防世界的环境又分发不了了，做点 Misc 罢。</p>
 <hr>
 <h2 id="Web"><a href="#Web" class="headerlink" title="Web"></a>Web</h2><h3 id="攻防世界-GFSJ1060-：file-include"><a href="#攻防世界-GFSJ1060-：file-include" class="headerlink" title="攻防世界 GFSJ1060 ：file_include"></a>攻防世界 GFSJ1060 ：file_include</h3><p>打开页面，可以看到页面源码：</p>
 <figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="title function_ invoke__">highlight_file</span>(<span class="keyword">__FILE__</span>);</span><br><span class="line">    <span class="keyword">include</span>(<span class="string">&quot;./check.php&quot;</span>);</span><br><span class="line">    <span class="keyword">if</span>(<span class="keyword">isset</span>(<span class="variable">$_GET</span>[<span class="string">&#x27;filename&#x27;</span>]))&#123;</span><br><span class="line">        <span class="variable">$filename</span>  = <span class="variable">$_GET</span>[<span class="string">&#x27;filename&#x27;</span>];</span><br><span class="line">        <span class="keyword">include</span>(<span class="variable">$filename</span>);</span><br><span class="line">    &#125;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
