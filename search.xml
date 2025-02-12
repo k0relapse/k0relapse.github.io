@@ -164,6 +164,9 @@
     <url>/2025/02/03/2025-02%20WriteUp/</url>
     <content><![CDATA[<h1>贰零贰伍年贰月刷题月记</h1>
 <hr>
+<h2 id="说在前面">说在前面</h2>
+<p>想起来跟队打的有些比赛的题解还没写上来，就在这里补上吧.</p>
+<hr>
 <h2 id="Misc">Misc</h2>
 <h3 id="SWPUCTF-2021-新生赛-zipbomb">[SWPUCTF 2021 新生赛] zipbomb</h3>
 <p>zip 炸弹，</p>
@@ -181,6 +184,56 @@
 <p>可以排查之前发现的 payload , 在包 9783 处发现 base64 编码的压缩命令，里面有压缩密码。</p>
 <p>passwd : <code>PaSsw0rd_LitCtF_L0vely_tanJi</code></p>
 <p>flag : <code>LitCTF&#123;anTsw0rd_fl0w_is_eAsY_f0r_u&#125;</code></p>
+<h2 id="CISCN-CCB-2024">CISCN&amp;CCB 2024</h2>
+<h3 id="zeroshell-1">zeroshell_1</h3>
+<p>流量包分析题，wireshark 打开</p>
+<p>搜索 zeroshell 很容易就可以搜到一个 CVE 漏洞</p>
+<p>用这个漏洞的 poc 去搜索，可以看到一个包，它里面的 Request 长这样：</p>
+<p><img src="/resources/images/2025-02_assert/2.webp" alt=""></p>
+<p>注意到 <code>Referer</code> 和其他的包长得不一样，明显的 Base64 编码，解密即可。</p>
+<p><code>flag&#123;6C2E38DA-D8E4-8D84-4A4F-E2ABD07A1F3A&#125;</code></p>
+<h3 id="zeroshell-2">zeroshell_2</h3>
+<p>利用上面的 poc 直接 <code>cat flag</code> 即可，flag 在 <code>/Database/flag</code> 里。</p>
+<p><code>flag&#123;c6045425-6e6e-41d0-be09-95682a4f65c4&#125;</code></p>
+<h3 id="zeroshell-3">zeroshell_3</h3>
+<p><code>Netstat -ano</code> 发现一个出站：</p>
+<p><img src="/resources/images/2025-02_assert/3.webp" alt=""></p>
+<p><code>flag&#123;202.115.89.103&#125;</code></p>
+<h3 id="zeroshell-4">zeroshell_4</h3>
+<p>解决第三问的同时我们可以得到进程的 <code>PID</code> 为 <code>10471</code></p>
+<p><code>ls -l /proc/10471/exe</code> 查询进程的可执行文件即可</p>
+<p><code>flag&#123;.nginx&#125;</code></p>
+<h3 id="WInFT-1">WInFT_1</h3>
+<p>基本上都是直接利用虚拟机内的工具解的。</p>
+<p>PCHunter 发现计划任务里有猫腻:</p>
+<p><img src="/resources/images/2025-02_assert/5.webp" alt=""></p>
+<p>描述里是 flag , 套了一层 <code>base64</code> 和 <code>html unicode</code></p>
+<p><code>flag&#123;AES_encryption_algorithm_is_an_excellent_encryption_algorithm&#125;</code></p>
+<h3 id="WinFT-2">WinFT_2</h3>
+<p>CurrPorts 发现可疑点</p>
+<p><img src="/resources/images/2025-02_assert/4.webp" alt=""></p>
+<p><code>flag&#123;miscsecure.com:192.168.116.130:443&#125;</code></p>
+<h2 id="2024-全国智能驾驶测试赛（总决赛）车联网安全">2024 全国智能驾驶测试赛（总决赛）车联网安全</h2>
+<h3 id="misc-01">misc 01</h3>
+<p>hint.txt 里提示了我们密码是纯数字</p>
+<p>爆破出压缩包密码</p>
+<p>得到一张 png 图片。</p>
+<p><img src="/resources/images/2025-02_assert/flag.png" alt=""></p>
+<p>stegsolve 打开，发现 B 通道 01234567 均存在隐写</p>
+<p><img src="/resources/images/2025-02_assert/6.webp" alt=""></p>
+<p>由于存在干扰，多对比几个 flag 然后去重即可得到 flag。</p>
+<p>4个重复的字母代表一个字符</p>
+<p><code>flag&#123;55dc7554-5faa-441d-88da-253eb5c4154f&#125;</code></p>
+<h3 id="misc-02">misc 02</h3>
+<p>USB 流量包题目。</p>
+<p>利用 <code>UsbKeyboardDataHacker</code> 可以直接爆出第一段 password。</p>
+<p>passwd1: <code>v3hicl3_ne7workin9_1s</code></p>
+<p>wireshark 发现蓝牙传了一个压缩包，里面是第二段 password 的摩斯密码cyberchef 可以解密.</p>
+<p>passwd2: <code>_IMPORTANT_2_U&amp;ME</code></p>
+<p>拼接得到完整密码(根据题目描述需要全大写) ：<code>V3HICL3_NE7WORKIN9_1S_IMPORTANT_2_U&amp;ME</code></p>
+<p>至于里面的 bmp ，名称提示了要用 <code>wbStego4.3open</code> 。</p>
+<p>Decode 后即可得到 flag ，没有密码。</p>
+<p><code>flag&#123;_1nt3rnet_0f_Vehicles_4_f4n&#125;</code></p>
 ]]></content>
       <categories>
         <category>Articles</category>
